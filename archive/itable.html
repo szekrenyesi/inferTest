@@ -1,0 +1,292 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			h1,h2 {
+				text-align:center;
+			}
+			
+			h1 {
+					color: orange;
+					text-shadow: 1px 1px 1px black;
+			}
+			h2 {
+					color: white;
+					text-shadow: 1px 1px 1px black;
+			}
+			h3 {
+					font-weight:normal;
+			}
+			body {
+					background-color: royalblue;
+					background: rgba(10,100,10,0.6);
+					padding:100px;
+			}
+			div {
+					box-shadow:;
+					background-color: ;
+					border-radius:;
+					margin-top:20px;
+					padding: 50px;
+			}
+			
+			div.task {
+					box-shadow: 5px 5px 5px black;
+					background-color: white;
+					background: rgba(0,0,50,0.1);
+					opacity: 1;
+					border-radius:30px;
+					margin-top:40px;
+					padding: 50px;
+			}
+			
+			table {
+					border:0px solid black;
+					border-collapse: collapse;
+					background-color:khaki;
+					background: rgba(100,100,100,0.2);
+					#background-color:lime;
+					box-shadow: 5px 5px 5px black;
+					border-radius:;
+					width: 100%;
+					max-width:;
+					width:;
+			}
+			td,th { 
+				border: 1px solid black;
+				padding: 10px;
+				
+				text-align:center;
+			}
+			input{
+					border:;
+					font-size:20px;
+					width:80%;
+						
+					background-color:white;
+			}
+			ul {
+					display:;
+			}
+			ol {
+				list-style-type: upper-roman;
+				margin-left:30px;
+			}
+			ol li {
+					padding:10px;
+					width:500px;
+			}
+			ul li {
+					padding:10px;
+					list-style-type: none;
+					width:500px;
+			}
+			label {
+				text-align: right;
+				clear: both;
+				float:left;
+				margin-right:15px;
+			}
+
+			p {
+					margin-left:40px;
+					text-align:left;
+			}
+			label { 
+				display: table-cell; 
+				width: 1px; 
+				white-space: nowrap; 
+			} 
+			a {
+					padding:10px;
+					text-decoration:none;
+			}
+		</style>
+		<script>
+			const letters = ['A','B','C','D'];
+			const romans = ['I.','II.','III.','IV.','V.'];
+			
+			function putPC(text,id){
+					document.getElementById(id).innerHTML = text;
+			}
+			
+			function insertSymb(id,symb){
+					document.getElementById(id).value = document.getElementById(id).value + symb;
+			}
+			
+			
+			function anChange(){
+				
+				var aset = document.getElementById("anum");
+				var pset = document.getElementById("pnum");
+				var anum = aset.options[aset.selectedIndex].value;
+				var pnum = pset.options[pset.selectedIndex].value;
+				var lnum = Math.pow(2,anum);
+				var inum = Number(pnum) + 1;
+				
+				
+				//Set atomic input
+				
+				alist = document.getElementById("alist");
+				alist.innerHTML = "";
+				for (i = 0; i < anum; i++) {
+						item = document.createElement("li");
+						alist.appendChild(item);
+						item.innerHTML = letters[i] + ":\t\t\t";
+						p = document.createElement("input");
+						p.setAttribute("type","text");
+						item.appendChild(p);
+				}
+				
+				//Set premise & conc.
+				
+				plist = document.getElementById("plist");
+				plist.innerHTML = "";
+				for (i = 1; i <= pnum; i++) {
+						item = document.createElement("li");
+						plist.appendChild(item);
+						p = document.createElement("input");
+						p.setAttribute("type","text");
+						p.setAttribute("id","ip" + i );
+						p.setAttribute("onchange","putPC(this.value,'p" + i + "')");
+						item.appendChild(p);
+				}
+				conc = document.getElementById("conc");
+				
+				//Set header for atomic statements 2261
+				
+				acol = document.getElementById("acol");
+				acol.colSpan = anum;
+				itable = document.getElementById("itable");
+				while (itable.rows.length > 2) {
+					itable.deleteRow(2);
+				}
+				
+				row = document.createElement("tr");
+				itable.appendChild(row);
+				cell = document.createElement("td");
+				row.appendChild(cell);
+				for (i = 0; i < anum; i++) {
+						cell = document.createElement("td");
+						row.appendChild(cell);
+						cell.innerHTML = letters[i];
+				}
+				
+				//Set header for premises
+				
+				pcol = document.getElementById("pcol");
+				pcol.setAttribute("colspan",pnum);
+				prems = document.getElementById("prems");
+				prems.innerHTML = "";
+				for (i = 0; i < pnum; i++) {
+					cell = document.createElement("th");
+					prems.appendChild(cell);
+					cell.innerHTML = romans[i];
+				}
+			
+			
+				// Insert premises
+				
+				for (i = 1; i <= pnum; i++) {
+						cell = document.createElement("td");
+						cell.setAttribute("id", "p" + i);
+						//p = document.createElement("input");
+						//p.setAttribute("type","text");
+						//cell.appendChild(p);
+						row.appendChild(cell);
+						
+				}
+				
+				// Insert Conc
+				
+				cell = document.createElement("td");
+				cell.setAttribute("id", "conc");
+				row.appendChild(cell);
+				
+				itable.appendChild(row);
+				for (i = 1; i <= lnum; i++) {
+					row = document.createElement("tr");
+					itable.appendChild(row);
+					cell = document.createElement("td");
+					row.appendChild(cell);
+					cell.innerHTML = i + ".";
+					for (c = 0; c < anum; c++) {
+						cell = document.createElement("td");
+						p = document.createElement("input");
+						p.setAttribute("type","checkbox");
+						cell.appendChild(p);
+						row.appendChild(cell);
+					}
+					for (c = 1; c <= inum; c++) {
+							cell = document.createElement("td");
+							p = document.createElement("input");
+							p.setAttribute("type","checkbox");
+							cell.appendChild(p);
+							row.appendChild(cell);
+					}
+				}
+			}
+			
+		</script>
+	</head>
+	<body>
+		<h1>Logika vizsgafeladat</h1>
+		<h2>A következtetés helyességének ellenőrzése<br> <span style="color:">igazságtáblázattal</span></h2>
+		
+		<div class="task">
+			<h3>1. Hány premisszát tartalmaz a következtetés?</h3>
+			<select style="margin-left:30px" id="pnum" required onchange="anChange()">
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+			
+		</div>
+		
+		<div class="task">
+			<h3>2. Hány atomi mondatot tartalmaz a következtetés?</h3>
+			<select style="margin-left:30px" id="anum" required onchange="anChange()">
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+			
+		</div>
+		<div  class="task">
+			<h3>3. Adja meg ezeket az atomi mondatokat természetes nyelven!</h3>
+				<ul id="alist">
+				</ul>
+		</div>
+		<div  class="task">
+			<h3>4. Formalizálja a következtetés premisszáit és konklúzióját a fönt megadott beűjelek (A, B, C,...) és a standard, nulladrendű állításlogikában
+			 használatos szimbólumok (~, &, v, &#8835;, &#8801;) segítségével!</h3>
+				<ol id="plist">
+				</ol>
+				<p style="width:500px;inline-block">K: <input id="iconc" style="margin-left:16px;width:50%" type="text" onchange="putPC(this.value,'conc')"></p>
+		</div>
+		<div class="task">
+			<h3>5. Töltse ki az igazságtáblázatot! Az interpretációk soraiban a pipa felel meg az igazságnak, a pipa hiánya a hamisságnak.</h3>
+			<table id="itable">
+					<tr>
+						<th rowspan=2></th>
+						<th id="acol" colspan=1 rowspan=2>Atomi mondatok</th>	
+						<th id ="pcol" colspan=1>Premisszák</th>
+						<th rowspan=2>Konklúzió</th>
+					</tr>
+					<tr id="prems">
+					</tr>
+			</table>
+		</div>
+		<div class="task">
+			<h3>6. Helyes-e a következtetés?</h3>
+			<p style="display:flex;width:300px">
+			<label  for="yes">Igen </label>
+			<input name="correct" id="yes" type="radio">
+			<label for="no">Nem </label>
+			<input name="correct" id="no" type="radio">
+		</div>
+		<script>
+			anChange();
+		</script>
+	</body>
+</html>

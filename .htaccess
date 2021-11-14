@@ -1,0 +1,6 @@
+Options +Indexes
+AuthName "restricted stuff"
+AuthType Basic
+AuthUserFile /var/www/.htpasswd
+
+require user szekrenyes

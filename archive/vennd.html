@@ -1,0 +1,574 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<style>
+		h1,h2 {
+				text-align:center;
+			}
+			
+			h1 {
+					color: orange;
+					text-shadow: 1px 1px 1px black;
+			}
+			h2 {
+					color: white;
+					text-shadow: 1px 1px 1px black;
+			}
+			h3,h4 {
+					font-weight:normal;
+			}
+			body {
+					background-color: white;
+					background: rgba(10,100,10,0.6);
+					padding:100px;
+			}
+			div {
+					box-shadow:;
+					background-color: ;
+					border-radius:;
+					margin-top: 20px;
+					padding: ;
+			}
+			
+			div.task {
+					box-shadow: 5px 5px 5px black;
+					background-color: white;
+					background: rgba(0,0,50,0.1);
+					opacity: 1;
+					border-radius:30px;
+					margin-top:40px;
+					padding: 50px;
+			}
+		table {
+			border:0px solid black;
+			border-collapse: collapse;
+			background: rgba(0,0,50,0.1);
+			min-width:100%;
+			padding:10px;
+			background-color:;
+		}
+		td {
+			border-bottom:1px solid black;
+			padding: 10px;
+		}
+		
+		input[type="text"] {
+			width: 80%;
+			font-size:22px;
+			border:none;
+			#background-color: none;
+			#background: rgba(0,0,0,0.0);
+		}
+		
+		#atable input {
+				text-align:center;
+		}
+		
+		td.branch input {
+			background: rgba(0,0,0,0.0);
+		}
+		
+		button {
+			font-size:22px;
+			width:40px;
+			padding:2px;
+		}
+		
+		.branch {
+				border-left: 3px solid black;
+				border-right: 3px solid black;
+				width:;
+		}
+		ul {
+					display:;
+			}
+			ol {
+				list-style-type: upper-roman;
+				margin-left:30px;
+			}
+			ol li {
+					padding:10px;
+					width:500px;
+			}
+			ul li {
+					padding:10px;
+					list-style-type: none;
+					width:500px;
+			}
+			label.answ {
+				text-align: right;
+				clear: both;
+				float:left;
+				margin-right:15px;
+			}
+
+			p {
+					margin-left:40px;
+					text-align:left;
+			}
+			label.answ { 
+				display: table-cell; 
+				width: 50px; 
+				white-space: nowrap; 
+			} 
+			a {
+					padding:10px;
+					text-decoration:none;
+			}
+			span.letter {
+					width:50px;
+					min-width:50px;
+			}
+		 circle {
+			fill: none;
+			stroke: #999999;
+			stroke-width: 3px;
+		}
+
+		.point {
+		  fill: #cc66ff;
+		  stroke-width: 0px;
+		}
+
+		text {
+		  font-family: sans-serif;
+		  color: #999999;
+		}		
+			
+	</style>
+	<script>
+		const letters = ['F','G','H'];
+		const romans = ['I.','II.','III.','IV.','V.'];
+		var pnum;
+		var inum;
+		
+		function putPC(text,ln){
+			var atable = document.getElementById("atable");
+			ln = ln - 1
+			var row = atable.getElementsByTagName("tr")[ln];
+			var cell = row.getElementsByTagName("td")[1];
+			cell.getElementsByTagName("input")[0].value = text;
+		}
+		
+		function anChange(){
+				
+				var aset = document.getElementById("anum");
+				var pset = document.getElementById("pnum");
+				var anum = aset.options[aset.selectedIndex].value;
+				pnum = pset.options[pset.selectedIndex].value;
+				inum = Number(pnum) + 1;
+				
+				
+				//Set atomic input
+				
+				alist = document.getElementById("alist");
+				alist.innerHTML = "";
+				for (i = 0; i < anum; i++) {
+						item = document.createElement("li");
+						alist.appendChild(item);
+						item.innerHTML = "<span class='letter'>" + letters[i] + ": </span>";
+						p = document.createElement("input");
+						p.setAttribute("type","text");
+						item.appendChild(p);
+				}
+				
+				//Set premise & conc.
+				
+				var plist = document.getElementById("plist");
+				plist.innerHTML = "";
+				var pcheck = document.getElementById("pcheck");
+				pcheck.innerHTML = "";
+
+				for (let i = 1; i <= pnum; i++) {
+						item = document.createElement("li");
+						plist.appendChild(item);
+						p = document.createElement("input");
+						p.setAttribute("type","text");
+						p.setAttribute("id","ip" + i );
+						item.appendChild(p);
+						p = document.createElement("input");
+						p.setAttribute("type","checkbox");
+						p.setAttribute("id","cp" + i );
+						pcheck.appendChild(p);
+						l = document.createElement("label");
+						l.setAttribute("for","cp" + i );
+						pcheck.appendChild(l);
+						l.innerHTML = romans[i-1] + " ";
+				}
+				conc = document.getElementById("conc");
+		
+		}
+		
+	</script>
+</head>
+<body>
+	<h1>Logika vizsgafeladat</h1>
+		<h2>A következtetés helyességének ellenőrzése<br> <span style="color:">Venn diagrammal</span></h2>
+		
+		<div class="task">
+			<h3>1. Hány premisszát tartalmaz a következtetés?</h3>
+			<select style="margin-left:30px" id="pnum" required onchange="anChange()">
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+			
+		</div>
+		
+		<div class="task">
+			<h3>2. Hány monadikus predikátumot tartalmaz a következtetés?</h3>
+			<select style="margin-left:30px" id="anum" required onchange="anChange()">
+				<option value="3">3</option>
+			</select>
+			
+		</div>
+		<div  class="task">
+			<h3>3. Mi ezek a predikátumok?</h3>
+				<ul id="alist">
+				</ul>
+		</div>
+		<div  class="task">
+			<h3>4. Formalizálja a következtetés premisszáit és konklúzióját a predikátumok betűjelei (F, G, H) és az elsőrendű állításlogikában
+			 használatos szimbólumok (&#8704;, &#8707;, ~, &, v, &#8835;, &#8801;) segítségével!</h3>
+				<ol id="plist">
+				</ol>
+				<p style="width:500px;inline-block">K: <input id="iconc" style="margin-left:16px;width:50%" type="text"></p>
+		</div>
+	<div class="task">
+		<h3>5. Készítse el a következtetés Venn diagramját!</h3>
+			<div style="border:1px solid black;width:500px;height:500px;float:left">
+			<svg width="500px" height="500px"></svg>
+			</div>
+			<div style="height:500px;border:0px solid black;padding:20px;margin-left: 550px">
+			<h4>5.1. Mely tartományok azok, amelyek üresek és mely premisszák alapján?</h4>
+			<div>
+			  <input type="checkbox" id="t1" name="t1" value="1" onclick="markTarget(this,1,'red')">
+			  <label for="t1">1</label>
+			  <input type="checkbox" id="t2" name="t2" value="2" onclick="markTarget(this,2,'red')">
+			  <label for="t2">2</label>
+			  <input type="checkbox" id="t3" name="t3" value="3" onclick="markTarget(this,3,'red')">
+			  <label for="t3">3</label>
+			  <input type="checkbox" id="t4" name="t4" value="4" onclick="markTarget(this,4,'red')">
+			  <label for="vehicle1">4</label>
+			  <input type="checkbox" id="t5" name="t5" value="5" onclick="markTarget(this,5,'red')">
+			  <label for="vehicle1">5</label>
+			  <input type="checkbox" id="t5" name="t6" value="5" onclick="markTarget(this,6,'red')">
+			  <label for="vehicle1">6</label>
+			  <input type="checkbox" id="t5" name="t7" value="5" onclick="markTarget(this,7,'red')">
+			  <label for="vehicle1">7</label>
+			  </div>
+			  <div id="pcheck">
+			  <input type="checkbox" id="t5" name="t5" value="5">
+			  <label for="vehicle1">I.</label>
+			  <input type="checkbox" id="t5" name="t6" value="5">
+			  <label for="vehicle1">II.</label>
+			  <input type="checkbox" id="t5" name="t7" value="5">
+			  <label for="vehicle1">III.</label>
+			  </div>
+
+			<h4 style="padding-top:20px">5.2. A fennmaradó tartományok közül hova rajzolna létezési jelet?</h4>
+			   <div>
+				  <input type="checkbox" id="t1" name="t1" value="1" onclick="markTarget(this,1,'green')">
+				  <label for="vehicle1">1</label>
+				  <input type="checkbox" id="t2" name="t2" value="2" onclick="markTarget(this,2,'green')">
+				  <label for="vehicle2">2</label>
+				  <input type="checkbox" id="t3" name="t3" value="3" onclick="markTarget(this,3,'green')">
+				  <label for="vehicle1">3</label>
+				  <input type="checkbox" id="t4" name="t4" value="4" onclick="markTarget(this,4,'green')">
+				  <label for="vehicle1">4</label>
+				  <input type="checkbox" id="t5" name="t5" value="5" onclick="markTarget(this,5,'green')">
+				  <label for="vehicle1">5</label>
+				  <input type="checkbox" id="t5" name="t6" value="5" onclick="markTarget(this,6,'green')">
+				  <label for="vehicle1">6</label>
+				  <input type="checkbox" id="t5" name="t7" value="5" onclick="markTarget(this,7,'green')">
+				  <label for="vehicle1">7</label>
+				</div>
+			</div>
+	</div>
+	<div class="task" style="clear:both">
+			<h3>6. Helyes-e a következtetés?</h3>
+			<p style="display:flex;width:500px">
+			<label  class="answ" for="yes">Igen </label>
+			<input name="correct" id="yes" type="radio">
+			<label class="answ" for="no"> Nem </label>
+			<input name="correct" id="no" type="radio">
+		</div>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+	
+function markTarget(t,target,color){
+	
+	var current = document.getElementById("s" + target).status;
+	if (t.checked){
+		if (current != undefined && current != color){
+			alert ("A tartományra már ellentétes érték van beállítva");
+			t.checked = false;
+		} else {
+			document.getElementById("s" + target).status = color;
+			d3.select("#s" + target)
+			.attr("fill", color)
+		}
+	} else {
+		document.getElementById("s" + target).status = undefined;
+		d3.select("#s" + target)
+		.attr("fill", "#6699cc")
+	}
+	
+	
+}
+
+anChange();
+
+const svg = d3.select("svg")
+
+const margin = {
+  top: 20,
+  right: 20,
+  bottom: 30,
+  left: 40
+}
+const width = +svg.attr("width") - margin.left - margin.right
+const height = +svg.attr("height") - margin.top - margin.bottom
+
+
+// piece of paper
+const g = svg.append("g")
+  .attr("transform",
+    "translate(" +
+    margin.left + "," +
+    margin.top + ")");
+
+//specs for Circle 1
+const xCenter1 = 150
+const yCenter1 = 150
+const circleRad = 100
+
+//draw Circle 1
+const circle1 = g.append("circle")
+  .attr("r", circleRad)
+  .attr('transform',
+    "translate(" +
+    xCenter1 + "," +
+    yCenter1 + ")");
+
+//add'l specs for Circle 2
+const offsetFactor = 1.2
+const offset = offsetFactor * circleRad
+const xCenter2 = xCenter1 + offset
+const yCenter2 = yCenter1 //creating new var for clarity
+
+//draw Circle 2
+const circle2 = g.append("circle")
+  .attr("r", circleRad)
+  .attr('transform',
+    "translate(" +
+    xCenter2 + "," +
+    yCenter2 + ")");
+
+//add'l specs for Circle 3
+const xCenter3 = xCenter1 + offset / 2
+const yCenter3 = yCenter1 + Math.sqrt(3) * offset / 2
+
+//draw Circle 3
+const circle3 = g.append("circle")
+  .attr("r", circleRad)
+  .attr('transform',
+    "translate(" +
+    xCenter3 + "," +
+    yCenter3 + ")");
+
+//compute first points of intersection
+const triHeight = Math.sqrt(circleRad ** 2  -  (offset / 2) ** 2)
+//outer intersection of Circles 1 and 2
+const xIsect1 = xCenter3
+const yIsect1 = yCenter1 - triHeight
+//inner intersection of Circles 1 and 2
+const xIsect4 = xCenter3
+const yIsect4 = yCenter1 + triHeight
+
+//treat "triHeight" as the hypoteneuse of a 30.60.90 triangle.
+//this tells us the shift from the midpoint of a leg of the triangle
+//to the point of intersection
+const xDelta = triHeight * Math.sqrt(3) / 2
+const yDelta = triHeight / 2
+
+const xMidpointC1C3 = (xCenter1 + xCenter3) / 2
+const xMidpointC2C3 = (xCenter2 + xCenter3) / 2
+const yMidpointBoth = (yCenter1 + yCenter3) / 2
+
+//find the rest of the points of intersection
+const xIsect2 = xMidpointC1C3 - xDelta
+const yIsect2 = yMidpointBoth + yDelta
+const xIsect3 = xMidpointC2C3 + xDelta
+const yIsect3 = yMidpointBoth + yDelta
+
+const xIsect5 = xMidpointC1C3 + xDelta
+const yIsect5 = yMidpointBoth - yDelta
+const xIsect6 = xMidpointC2C3 - xDelta
+const yIsect6 = yMidpointBoth - yDelta
+
+xPoints = [xIsect1, xIsect2, xIsect3, xIsect4, xIsect5, xIsect6]
+yPoints = [yIsect1, yIsect2, yIsect3, yIsect4, yIsect5, yIsect6]
+
+const makeIronShapes = ([x1, x2, x3, y1, y2, y3]) => {
+  path = `M ${x1} ${y1}
+             A ${circleRad} ${circleRad} 0 0 1 ${x2} ${y2}
+             A ${circleRad} ${circleRad} 0 0 0 ${x3} ${y3}
+             A ${circleRad} ${circleRad} 0 0 1 ${x1} ${y1}`
+  return path
+}
+
+
+const makeSunShapes = ([x1, x2, x3, y1, y2, y3]) => {
+  path = `M ${x1} ${y1}
+             A ${circleRad} ${circleRad} 0 0 0 ${x2} ${y2}
+             A ${circleRad} ${circleRad} 0 0 0 ${x3} ${y3}
+             A ${circleRad} ${circleRad} 0 1 1 ${x1} ${y1}`
+  return path
+}
+
+
+const makeRoundedTri = ([x1, x2, x3, y1, y2, y3]) => {
+  path = `M ${x1} ${y1}
+             A ${circleRad} ${circleRad} 0 0 1 ${x2} ${y2}
+             A ${circleRad} ${circleRad} 0 0 1 ${x3} ${y3}
+             A ${circleRad} ${circleRad} 0 0 1 ${x1} ${y1}`
+  return path
+}
+
+
+ironPoints = [
+  [1, 5, 6],
+  [3, 4, 5],
+  [2, 6, 4]
+]
+sunPoints = [
+  [3, 5, 1],
+  [2, 4, 3],
+  [1, 6, 2]
+]
+roundedTriPoints = [
+  [5, 4, 6]
+]
+
+id=1;
+
+
+
+for (const points of sunPoints) {
+  const ptCycle = points.map(i => xPoints[i - 1]).concat(
+    points.map(i => yPoints[i - 1])
+  )
+  const shape = makeSunShapes(ptCycle)
+
+  g.append("path")
+    .attr("d", shape)
+    .attr("id","s" + id)
+    .attr("class", "segment")
+    .attr("fill", "#6699cc")
+    .attr("opacity", 0.4)
+    
+  id++
+}
+
+for (const points of ironPoints) {
+  const ptCycle = points.map(i => xPoints[i - 1]).concat(
+    points.map(i => yPoints[i - 1])
+  )
+  const shape = makeIronShapes(ptCycle)
+
+  g.append("path")
+    .attr("d", shape)
+    .attr("id","s" + id)
+    .attr("class", "segment")
+    .attr("fill", "#6699cc")
+    .attr("opacity", 0.4)
+   
+  id++
+}
+
+for (const points of roundedTriPoints) {
+  const ptCycle = points.map(i => xPoints[i - 1]).concat(
+    points.map(i => yPoints[i - 1])
+  )
+  const shape = makeRoundedTri(ptCycle)
+
+  g.append("path")
+    .attr("d", shape)
+    .attr("id","s" + id)
+    .attr("class", "segment")
+    .attr("fill", "#6699cc")
+    .attr("opacity", 0.4)
+}
+
+
+g.selectAll("path.segment")
+    .on("mouseover", function () {
+        d3.select(this)
+        	.transition()
+        	.attr("opacity", 0.8)
+          .duration(500)
+    })
+    .on("mouseout", function () {
+        d3.select(this)
+        	.transition()
+        	.attr("opacity", 0.4)
+          .duration(500)
+    })
+
+g.append("text")
+  .text("F")
+  .style("font-weight","bold")
+  .attr("x", xIsect1 - 180)
+  .attr("y", yIsect1 + 70)
+  
+g.append("text")
+  .text("G")
+  .style("font-weight","bold")
+  .attr("x", xIsect3 + 70)
+  .attr("y", yIsect3 - 100)
+
+g.append("text")
+  .text("H")
+  .style("font-weight","bold")
+  .attr("x", xIsect4 - 5)
+  .attr("y", yIsect4 + 150)
+
+g.append("text")
+  .text("3")
+  .attr("x", xIsect1 - 90)
+  .attr("y", yIsect1 + 70)
+
+g.append("text")
+  .text("6")
+  .attr("x", xIsect2 + 40)
+  .attr("y", yIsect2 - 20)
+
+g.append("text")
+  .text("1")
+  .attr("x", xIsect3)
+  .attr("y", yIsect3 - 100)
+
+g.append("text")
+  .text("7")
+  .attr("x", xIsect4 - 5)
+  .attr("y", yIsect4 - 35)
+
+g.append("text")
+  .text("5")
+  .attr("x", xIsect5 + 10)
+  .attr("y", yIsect5 + 60)
+
+g.append("text")
+  .text("4")
+  .attr("x", xIsect6 + 35)
+  .attr("y", yIsect6 - 40)
+  
+g.append("text")
+  .text("2")
+  .attr("x", xIsect4 - 5)
+  .attr("y", yIsect4 + 60)
+
+</script>
+</body>
+</html>

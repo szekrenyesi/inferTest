@@ -1,0 +1,340 @@
+h1,h2 {
+	text-align:center;
+}
+
+input[type="submit"]:hover {
+        cursor:pointer;
+}
+
+#message {
+	position:fixed;
+	top:10px;
+	padding:0px;
+	left:10px;
+	font-size:20px;
+	z-index:1000;
+	margin-top:0px;
+	border:0px solid black;
+	
+}
+
+button.reset {
+	opacity:0.7;
+	margin-left:20px;
+	cursor:pointer;
+}
+
+button.reset:hover {
+	opacity:1;
+	color:red;
+}
+
+#exit button {
+	position:fixed;
+	width:100px;
+	font-size:18px;
+	background:;
+	opacity:0.7;
+	top: 10px;
+	right:10px;
+	cursor:pointer;
+}
+
+.help  {
+	text-align:center;
+	color:lime;
+	cursor:pointer;
+}
+
+.taskdesc {
+	background-color:khaki;
+	padding:20px;
+	border-radius:20px;
+
+}
+
+h1 {
+		color: orange;
+		text-shadow: 1px 1px 1px black;
+}
+
+h2 {
+		color: white;
+		text-shadow: 1px 1px 1px black;
+}
+
+h3,h4 {
+		font-weight:normal;
+}
+
+#error {
+        color:red;
+        text-align:center;
+        font-weight:bold;
+	padding:10px;
+	width:100%;
+	margin:auto;
+	background:rgba(0,0,0,0.0);
+	text-shadow:1px 1px 1px black;
+	box-shadow:0px 0px 0px black;
+	font-size:22px;
+}
+
+
+body {
+		background-color: white;
+		background: rgba(10,100,10,0.6);
+		padding:5%;
+}
+
+div {
+		box-shadow:;
+		background-color: ;
+		border-radius:;
+		margin-top: 20px;
+		padding: ;
+}
+
+div.task {
+		box-shadow: 5px 5px 5px black;
+		background-color: white;
+		background: rgba(0,0,50,0.1);
+		opacity: 1;
+		border-radius:30px;
+		margin-top:40px;
+		padding: 50px;
+}
+
+table {
+	border:0px solid black;
+	border-collapse: collapse;
+	background: rgba(0,0,50,0.1);
+	min-width:100%;
+	padding:10px;
+	background-color:;
+}
+
+#timer {
+	display: none;
+	position:fixed;
+	width:100px;
+	height:20px;
+	top:0px;
+	left:50%;
+	margin-left: -50px;
+	margin-top:0px;
+	text-align:center;
+	color: lime;
+	padding:10px;
+	font-size:20px;
+	font-weight:bold;
+	text-shadow: 1px 1px 1px black;
+	background:rgba(0,0,0,0.2);
+	border:3px inset black;
+}
+
+table.box {
+    width:;
+    min-width:400px;
+    height:200px;
+    border-radius:20px;
+    min-height:200px;
+    max-height:200px;
+    padding:100px;
+    border: 0px outset black;
+    box-shadow: 5px 5px 5px black;
+    margin: auto;
+    background-color: BurlyWood;
+    background: rgba(0,0,50,0.1);
+}
+
+
+table.box td {
+    padding:20px;
+    border:0px inset black;
+    width:;
+    height:10px;
+}
+
+table.box tr {
+	height:20px;
+	padding:0px;
+}
+
+
+#atable td {
+	border-bottom:1px solid black;
+	padding: 10px;
+}
+
+#itable td,th { 
+	border: 1px solid black;
+	padding: 10px;
+	text-align:center;
+}
+
+#dia {
+	border:1px solid black;
+	width:500px;
+	height:500px;
+	background-color:;
+	float:left;
+}
+input[type="text"] {
+	width: 80%;
+	font-size:22px;
+	border:none;
+	#background-color: none;
+	#background: rgba(0,0,0,0.0);
+}
+
+table.box input[type="text"]{
+        width:200px;
+        font-size:22px;
+}
+
+table.box input[type="password"]{
+        width:200px;
+        font-size:18px;
+}
+
+
+table.box input[type="submit"] {
+        width:100px;
+}
+
+
+
+#atable input {
+		text-align:center;
+}
+
+td.branch input {
+	background: rgba(0,0,0,0.0);
+}
+
+#atable button {
+	font-size:22px;
+	width:40px;
+	padding:2px;
+}
+
+span.ready {
+	text-shadow:1px 1px 1px black;
+	color: lime;
+	font-weight:bold;
+}
+
+span.pending {
+	text-shadow:1px 1px 1px black;
+        color: red;
+        font-weight:bold;
+}
+
+.branch {
+		border-left: 3px solid black;
+		border-right: 3px solid black;
+		width:;
+}
+
+ul {
+		display:;
+}
+
+ol {
+	list-style-type: upper-roman;
+	margin-left:30px;
+}
+
+ol li {
+		padding:10px;
+		width:500px;
+}
+
+ul li {
+		padding:10px;
+		list-style-type: none;	
+		width:500px;
+}
+
+label.answ {
+	text-align: right;
+	clear: both;
+	float:left;
+	margin-right:15px;
+}
+
+p {
+		margin-left:40px;
+		text-align:left;
+}
+
+label.answ { 
+	display: table-cell; 
+	width: 50px; 
+	white-space: nowrap; 
+}
+
+a {
+	color:blue;
+	text-decoration:;
+}
+
+a:hover {
+	font-weight:bold;	
+}
+
+span.letter {
+		width:50px;
+		min-width:50px;
+}
+
+circle {
+	fill: none;
+	stroke: #999999;
+	stroke-width: 3px;
+}
+
+.point {
+  fill: #cc66ff;
+  stroke-width: 0px;
+}
+
+text {
+  font-family: sans-serif;
+  color: #999999;
+}
+
+.center {
+	 display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width:100%;
+  border: 0px solid green
+
+}
+
+.split {
+	float:right;
+}
+
+button.final {
+	width:200px;
+	height:100px;
+	background-color:red;
+	background:rgba(255,0,0,0.5);
+	border:none;
+	font-size:25px;
+	text-shadow:1px 1px 1px black;
+	cursor:pointer;
+
+	opacity:1;
+	color:white;
+	border-radius:20px;
+}
+
+button.final:hover {
+	background:rgba(255,0,0,0.9);
+	color:white;
+}

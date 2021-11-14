@@ -1,0 +1,1 @@
+{"atoms":[{"text":"utálja a delfineket"},{"text":"megtámad oroszlán"},{"text":"megtámad viziló"}],"prems":[{"form":"∀(~F⊃~G)"},{"form":"∃(~G⊃~H)"},{"form":"~∀(H)"}],"conc":"~∀(F&G)","venn":{"empty":[false,true,true,false,false,false,false],"exist":[false,false,false,false,false,true,false]},"answer":true}

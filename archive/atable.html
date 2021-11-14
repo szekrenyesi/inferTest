@@ -1,0 +1,375 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<style>
+		h1,h2 {
+				text-align:center;
+			}
+			
+			h1 {
+					color: orange;
+					text-shadow: 1px 1px 1px black;
+			}
+			h2 {
+					color: white;
+					text-shadow: 1px 1px 1px black;
+			}
+			h3 {
+					font-weight:normal;
+			}
+			body {
+					background-color: white;
+					background: rgba(10,100,10,0.6);
+					padding:100px;
+			}
+			div {
+					box-shadow:;
+					background-color: ;
+					border-radius:;
+					margin-top:20px;
+					padding: 50px;
+			}
+			
+			div.task {
+					box-shadow: 5px 5px 5px black;
+					background-color: white;
+					background: rgba(0,0,50,0.1);
+					opacity: 1;
+					border-radius:30px;
+					margin-top:40px;
+					padding: 50px;
+			}
+		table {
+			border:0px solid black;
+			border-collapse: collapse;
+			background: rgba(0,0,50,0.1);
+			min-width:100%;
+			padding:10px;
+			background-color:;
+		}
+		td {
+			border-bottom:1px solid black;
+			padding: 10px;
+		}
+		
+		input {
+			width: 80%;
+			font-size:22px;
+			border:none;
+			#background-color: none;
+			#background: rgba(0,0,0,0.0);
+		}
+		
+		#atable input {
+				text-align:center;
+		}
+		
+		td.branch input {
+			background: rgba(0,0,0,0.0);
+		}
+		
+		button {
+			font-size:22px;
+			width:40px;
+			padding:2px;
+		}
+		
+		.branch {
+				border-left: 3px solid black;
+				border-right: 3px solid black;
+				width:;
+		}
+		ul {
+					display:;
+			}
+			ol {
+				list-style-type: upper-roman;
+				margin-left:30px;
+			}
+			ol li {
+					padding:10px;
+					width:500px;
+			}
+			ul li {
+					padding:10px;
+					list-style-type: none;
+					width:500px;
+			}
+			label {
+				text-align: right;
+				clear: both;
+				float:left;
+				margin-right:15px;
+			}
+
+			p {
+					margin-left:40px;
+					text-align:left;
+			}
+			label { 
+				display: table-cell; 
+				width: 1px; 
+				white-space: nowrap; 
+			} 
+			a {
+					padding:10px;
+					text-decoration:none;
+			}
+			span {
+					color:;
+			}
+	</style>
+	<script>
+		const letters = ['A','B','C','D'];
+		const romans = ['I.','II.','III.','IV.','V.'];
+		var pnum;
+		var inum;
+		
+		function putPC(text,ln){
+			var atable = document.getElementById("atable");
+			ln = ln - 1
+			var row = atable.getElementsByTagName("tr")[ln];
+			var cell = row.getElementsByTagName("td")[1];
+			cell.getElementsByTagName("input")[0].value = text;
+		}
+		
+		function anChange(){
+				
+				var aset = document.getElementById("anum");
+				var pset = document.getElementById("pnum");
+				var anum = aset.options[aset.selectedIndex].value;
+				pnum = pset.options[pset.selectedIndex].value;
+				inum = Number(pnum) + 1;
+				
+				
+				//Set atomic input
+				
+				alist = document.getElementById("alist");
+				alist.innerHTML = "";
+				for (i = 0; i < anum; i++) {
+						item = document.createElement("li");
+						alist.appendChild(item);
+						item.innerHTML = letters[i] + ":\t\t\t";
+						p = document.createElement("input");
+						p.setAttribute("type","text");
+						item.appendChild(p);
+				}
+				
+				//Set premise & conc.
+				
+				plist = document.getElementById("plist");
+				plist.innerHTML = "";
+				atable = document.getElementById("atable");
+				while (atable.rows.length > 1) {
+					atable.deleteRow(1);
+				}
+
+				for (let i = 1; i <= pnum; i++) {
+						add(i);
+						item = document.createElement("li");
+						plist.appendChild(item);
+						p = document.createElement("input");
+						p.setAttribute("type","text");
+						p.setAttribute("id","ip" + i );
+						p.setAttribute("onchange","putPC(this.value," + i + ")");
+						item.appendChild(p);
+				}
+				conc = document.getElementById("conc");
+		
+		}
+		
+		function altern(rn,cn){
+			ncn = cn + 1;
+			row = document.getElementById("r" + rn);
+			var ocell = row.getElementsByTagName("td")[cn];
+			var newc = row.insertCell(ncn);
+			newc.setAttribute("class","branch");
+			var obr = ocell.id;
+			ocell.id = obr + "A";
+			var newbr = obr + "B";
+			newc.setAttribute("id",newbr);
+			var ctext = document.createElement("input");
+			ctext.setAttribute("type","text");
+			newc.appendChild(ctext);
+			var splitc = document.createElement("button");		
+			splitc.setAttribute("onclick","altern(" + rn + "," + ncn + ")");
+			splitc.setAttribute("style","float:right");
+			splitc.innerHTML = "/\\";
+			newc.appendChild(splitc);
+			for (r = 1; r < rn; r++) {
+				var partr = document.getElementById("r" + r);
+				var cnum = partr.childElementCount - 3;
+				for (c = 1; c <= cnum; c++) {
+						var cell = partr.getElementsByTagName("td")[c];
+						var br = cell.id;
+						if (newbr.includes(br)){
+							newcspn = cell.colSpan + 1;
+							cell.setAttribute("colspan",newcspn);
+						}
+				}
+			}
+		}
+		
+		function remove(rown){
+			if (rown < inum + 1){
+					//return
+			}
+			document.getElementById("r" + rown).remove();
+			var rn = rown - 1 ;
+			var partr = document.getElementById("r" + rn);
+			var cnum = partr.childElementCount - 3;
+			if (rn > inum){		
+				for (c = 1; c <= cnum; c++) {
+					var cell = partr.getElementsByTagName("td")[c];
+					var splitc = document.createElement("button");
+					splitc.setAttribute("onclick","altern(" + rn + "," + c + ")");
+					splitc.setAttribute("style","float:right");
+					splitc.innerHTML = "/\\";
+					cell.appendChild(splitc);
+				}
+			}
+			if (rown > inum){
+				var cell = partr.getElementsByTagName("td")[cnum + 1];
+				var plus = 	document.createElement("button");
+				plus.setAttribute("value","+");
+				plus.setAttribute("onclick","add(" + rn + ")");
+				plus.innerHTML = "+";
+				cell.appendChild(plus);
+			}
+			if (rown > inum + 1){
+				var cell = partr.getElementsByTagName("td")[cnum + 2];
+				var minus = document.createElement("button");
+				minus.setAttribute("value","-");
+				minus.setAttribute("onclick","remove(" + rn + ")");
+				minus.innerHTML = "-";
+				cell.appendChild(minus);
+			}
+		}
+		function add(rown){
+				var tbl = document.getElementById("atable");
+				var partr = document.getElementById("r" + rown);
+				var cnum = partr.getElementsByTagName("td").length - 3;				
+				var row = document.createElement("tr");
+				rn = rown + 1
+				row.setAttribute("id","r" + rn);
+				tbl.appendChild(row);
+				var cell = document.createElement("td");
+				cell.innerHTML = rn;
+				row.appendChild(cell);
+				for (c = 1; c < partr.childElementCount; c++) {
+					var cell = partr.getElementsByTagName("td")[c];
+					if (cell.getElementsByTagName("button")[0]){
+						cell.getElementsByTagName("button")[0].remove();
+					}
+				}
+				for (let i = 1; i <= cnum; i++) {
+						var cell = document.createElement("td");
+						cell.setAttribute("class","branch");
+						var branch = partr.getElementsByTagName("td")[i].id;
+						cell.setAttribute("id",branch);
+						colspn = partr.getElementsByTagName("td")[i].colSpan;
+						cell.setAttribute("colspan",colspn);
+						row.appendChild(cell);
+						var ctext = document.createElement("input");
+						ctext.setAttribute("type","text");
+						cell.appendChild(ctext);
+						if (rown > pnum){
+							var splitc = document.createElement("button");
+							splitc.setAttribute("onclick","altern(" + rn + "," + i + ")");
+							splitc.setAttribute("style","float:right");
+							splitc.innerHTML = "/\\";
+							cell.appendChild(splitc);
+						}
+				}
+				var cell = document.createElement("td");
+				row.appendChild(cell);
+				if (rown > pnum - 1){
+					var plus = 	document.createElement("button");
+					plus.setAttribute("value","+");
+					plus.setAttribute("onclick","add(" + rn + ")");
+					plus.innerHTML = "+";
+					cell.appendChild(plus);
+				}
+				var cell = document.createElement("td");
+				row.appendChild(cell);
+				if (rown > pnum){
+					var minus = document.createElement("button");
+					minus.setAttribute("value","-");
+					minus.setAttribute("onclick","remove(" + rn + ")");
+					minus.innerHTML = "-";
+					cell.appendChild(minus);
+				}
+		}
+		
+	</script>
+</head>
+<body>
+	<h1>Logika vizsgafeladat</h1>
+		<h2>A következtetés helyességének ellenőrzése<br> <span style="color:">analitikus táblázattal</span></h2>
+		
+		<div class="task">
+			<h3>1. Hány premisszát tartalmaz a következtetés?</h3>
+			<select style="margin-left:30px" id="pnum" required onchange="anChange()">
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+			
+		</div>
+		
+		<div class="task">
+			<h3>2. Hány atomi mondatot tartalmaz a következtetés?</h3>
+			<select style="margin-left:30px" id="anum" required onchange="anChange()">
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+			
+		</div>
+		<div  class="task">
+			<h3>3. Adja meg ezeket az atomi mondatokat természetes nyelven!</h3>
+				<ul id="alist">
+				</ul>
+		</div>
+		<div  class="task">
+			<h3>4. Formalizálja a következtetés premisszáit és konklúzióját a fönt megadott beűjelek (A, B, C,...) és a standard, nulladrendű állításlogikában
+			 használatos szimbólumok (~, &, v, &#8835;, &#8801;) segítségével!</h3>
+				<ol id="plist">
+				</ol>
+				<p style="width:500px;inline-block">K: <input id="iconc" style="margin-left:16px;width:50%" type="text"></p>
+		</div>
+	<div class="task">
+		<h3>5. Vezesse le a következtetés analitikus táblázatát!</h3>
+		<table id="atable">
+			<tr id="r1">
+				<td>1</td>
+				<td id="M" colspan="1" class="branch">
+					<input type="text">
+				</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr id="r2">
+				<td>2</td>
+				<td id="M" colspan="1" class="branch">
+					<input type="text">
+				</td>
+				<td><button onclick="add(2)">+</button></td>
+				<td><button onclick="remove(2)">-</button></td>
+			</tr>
+		</table>
+	</div>
+	<div class="task">
+			<h3>6. Helyes-e a következtetés?</h3>
+			<p style="display:flex;width:300px">
+			<label  for="yes">Igen </label>
+			<input name="correct" id="yes" type="radio">
+			<label for="no">Nem </label>
+			<input name="correct" id="no" type="radio">
+		</div>
+	<script>
+			anChange();
+	</script>
+	<!--<button onclick="alert(getElementById('atable').innerHTML)">Finish</button>-->
+</body>
+</html>
