@@ -1,1 +1,0 @@
-{"atoms":[{"text":"utálja a delfineket"},{"text":"megtámadják az oroszlánok"},{"text":"megtámadják a vízilovak"}],"prems":[{"form":"∀ ~ F ⊃ ~ G"},{"form":"∀ ~ G ⊃ ~ H"},{"form":"∃ H"}],"conc":"∃ F ⊃ H","venn":{"empty":[false,false,true,true,false,false,true],"exist":[false,true,false,false,true,true,false]},"answer":true}
