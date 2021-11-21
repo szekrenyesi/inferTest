@@ -24,6 +24,8 @@ function test_input($data) {
 }
 
 require_once 'dbconnect.php';
+ini_set('session.gc_maxlifetime',60*60);
+ini_set('session.cookie_lifetime',60*60);
 
 ob_start();
 session_start(['cookie_lifetime' => 86400]);
@@ -32,7 +34,7 @@ $config = parse_ini_file('conf/config.ini');
 $maxtrial = $config['maxtrial'];
 $ddate = $config['date'];
 $tlimit = $config['tlimit'];
-$code = $config['code'];
+$code = $config['examid'];
 $current = date("Y-m-d H:i:s");
 $start = $config['startdate'];
 $end = $config['enddate'];

@@ -24,7 +24,7 @@ $main->formatOutput = true;
 $main->loadHTMLFile("../modules/html/result.html");
 $css = $main->createElement("link");
 $css->setAttribute("rel","stylesheet");
-$css->setAttribute("href","../modules/css/result.css");
+$css->setAttribute("href","../modules/css/result.css?v1.1");
 $script = $main->createElement("script");
 $script->setAttribute("src","../modules/js/view.js");
 $main->getElementsByTagName("head")[0]->appendChild($css);

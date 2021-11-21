@@ -26,6 +26,9 @@ if (!isset($_GET['stage'])){
 } 
 
 if (isset($_SESSION['user'])){
+	if ($_SESSION['code'] != $code){
+		header("Location: logout.php");
+	}
 	$user = $_SESSION['user'];
 	if ($_GET['stage'] == 1){
 		echo "<h2>$ddate</h2>";
@@ -185,7 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	} else {
 		if (strtotime($current) - strtotime($laststart) > $tlimit || $first == true){
 			$trials = $trials + 1;
-			$sql = "UPDATE applications SET laststart = '$current', trials = $trials WHERE neptun = '$neptun'";
+			$sql = "UPDATE applications SET laststart = '$current', trials = $trials WHERE neptun = '$neptun' AND exam = '$code'";
 			$result = $conn->query($sql);
 			print_r($conn->error);
 		}
@@ -194,6 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$_SESSION['user'] = $neptun;
 	$_SESSION['fullname'] = $row->fullname;
 	$_SESSION['trialstart'] = $laststart;
+	$_SESSION['code'] = $code;
         header("Location:index.php");
 
 

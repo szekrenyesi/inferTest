@@ -22,10 +22,12 @@ table td,th {
 
 	foreach($resdir as $file){
 		$pinfo = pathinfo($file);
-		if ($file != "." && $file != ".." && $pinfo['extension'] == "json"){
-			echo "<tr>";
-			echo "<td><a href='view.php?file=$file'>$file</a></td><td>" . date ("F d Y H:i:s.", filemtime("../../prod/data/result/$file")) ."</td>";
-			echo "</tr>";
+		if (isset($pinfo['extension'])){
+			if ($pinfo['extension'] == "json"){
+				echo "<tr>";
+				echo "<td><a href='view.php?file=$file'>$file</a></td><td>" . date ("F d Y H:i:s.", filemtime("../../prod/data/result/$file")) ."</td>";
+				echo "</tr>";
+			}
 		}
 	}
 

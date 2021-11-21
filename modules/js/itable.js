@@ -11,6 +11,13 @@ function insertSymb(id,symb){
 		document.getElementById(id).value = document.getElementById(id).value + symb;
 }
 
+function interpret(n) {
+	if(n==0) {return [[]];}
+	var prev = interpret(n-1);
+	var mt = function(x) {return [true].concat(x);};
+	var mf = function(x) {return [false].concat(x);};
+	return prev.map(mt).concat(prev.map(mf));
+}
 
 function anChange(){
 	
@@ -98,8 +105,10 @@ function anChange(){
 	// Insert Conc
 	
 	var cell = document.createElement("td");
+	var interlist = interpret(anum);
 	cell.setAttribute("id", "conc");
 	row.appendChild(cell);
+
 	
 	itable.appendChild(row);
 	for (i = 1; i <= lnum; i++) {
@@ -114,6 +123,9 @@ function anChange(){
 			p.setAttribute("type","checkbox");
 			cell.appendChild(p);
 			row.appendChild(cell);
+			if (interlist[i-1][c] == true){
+				p.setAttribute("checked","true");
+			}
 		}
 		for (c = 1; c <= inum; c++) {
 				var cell = document.createElement("td");
