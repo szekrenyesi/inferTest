@@ -2,4 +2,4 @@
 
 More coming soon...
 
-(c) István Szekrényes 2021. Released under the GNU License.
+(c) Temporary Anonymized 2021. Released under the GNU License.

@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-<title>Logika vizsga</title>
+<title>InferTest</title>
 <link rel="stylesheet" href="modules/css/style.css?v=1.5">
 <script src="modules/js/main.js?v1"></script>
 <script src='modules/js/timer.js?v=1.2'></script>
@@ -15,7 +15,7 @@
 <body>
 <h2 id="message"></h2>
 <div id="timer"></div>
-<h1>Logika vizsgafeladat</h1>
+<h1>InferTest</h1>
 <?php
 
 include "settings.php";
